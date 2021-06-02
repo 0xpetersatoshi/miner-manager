@@ -2,7 +2,9 @@
 Handle API response data.
 """
 import re
+
 from miner_manager.models import Gas
+
 
 class InvalidRecord(Exception):
     pass

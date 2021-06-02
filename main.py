@@ -1,12 +1,14 @@
-import os
-import yaml
 import logging
 import logging.config
+import os
+
+import yaml
+
 from miner_manager.averages import calculate_ema
 from miner_manager.client import APIClient
-from miner_manager.response_handler import ResponseHandler
 from miner_manager.miner import miner_is_on, toggle_miner_on_off
 from miner_manager.models import Gas
+from miner_manager.response_handler import ResponseHandler
 
 with open('log.yaml') as fp:
     config = yaml.safe_load(fp.read())
