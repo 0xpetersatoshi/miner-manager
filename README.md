@@ -19,6 +19,6 @@ Run manually:
 python main.py
 ```
 
-**Note**: This is intented to run on a scheduled basis
+**Note**: This is intended to run on a scheduled basis
 
 
