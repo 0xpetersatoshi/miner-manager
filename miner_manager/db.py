@@ -1,6 +1,4 @@
-import sqlite3
-from sqlite3 import Error
-from models import db, Gas
+from miner_manager.models import db, Gas
 
 
 def create_tables():

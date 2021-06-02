@@ -2,11 +2,11 @@ import os
 import yaml
 import logging
 import logging.config
-from averages import calculate_ema
-from client import APIClient
-from handler import ResponseHandler
-from miner import miner_is_on, toggle_miner_on_off
-from models import Gas
+from miner_manager.averages import calculate_ema
+from miner_manager.client import APIClient
+from miner_manager.handler import ResponseHandler
+from miner_manager.miner import miner_is_on, toggle_miner_on_off
+from miner_manager.models import Gas
 
 with open('log.yaml') as fp:
     config = yaml.safe_load(fp.read())

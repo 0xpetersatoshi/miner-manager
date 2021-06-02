@@ -1,5 +1,5 @@
 import re
-from models import Gas
+from miner_manager.models import Gas
 
 class InvalidRecord(Exception):
     pass

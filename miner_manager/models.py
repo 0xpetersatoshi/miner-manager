@@ -6,7 +6,7 @@ import datetime
 
 from peewee import *
 
-DB_PATH = r".\db\ethgas.db"
+DB_PATH = r"db\ethgas.db"
 
 db = SqliteDatabase(DB_PATH)
 
