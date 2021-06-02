@@ -145,3 +145,7 @@ db/ethgas.db
 
 # etc...
 *.json
+
+# miner files
+ETH-ethermine.bat
+t-rex.exe
