@@ -1,5 +1,6 @@
-import json
-import os
+"""
+API client wrapper.
+"""
 import requests
 
 BASE_URL = 'https://ethgasstation.info/api/ethgasAPI.json'
@@ -44,10 +45,3 @@ class APIClient:
 
     def _build_url(self):
         return f'{self.base_url}?api-key={self._api_key}'
-
-
-if __name__ == '__main__':
-    api_key = os.getenv('ETH_GAS_STATION_API_KEY')
-    client = APIClient(api_key)
-    response = client.get()
-    print(json.dumps(response))

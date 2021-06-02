@@ -3,10 +3,13 @@ Defines the tables for the app.
 """
 
 import datetime
+import os
 
 from peewee import *
 
-DB_PATH = r"db\ethgas.db"
+DB_DIR = 'db'
+DB_NAME = 'ethgas.db'
+DB_PATH = os.path.join(DB_DIR, DB_NAME)
 
 db = SqliteDatabase(DB_PATH)
 

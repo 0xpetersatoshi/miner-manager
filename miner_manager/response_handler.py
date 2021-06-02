@@ -1,3 +1,6 @@
+"""
+Handle API response data.
+"""
 import re
 from miner_manager.models import Gas
 
@@ -64,18 +67,4 @@ class ResponseHandler:
         remapped = {self.remap().get(key, key): value for key, value
                     in self.to_snake_case().items()}
         return Gas(**remapped)
-
-
-if __name__ == '__main__':
-    import json
-    with open('example.json') as fh:
-        response = json.load(fh)
-
-    handler = ResponseHandler(response)
-    gas = handler.create_record()
-    print('record created successfully')
-    print(f"average gas price: {gas.gas_price_average}")
-    print(f"gas price fastest: {gas.gas_price_fastest}")
-    print(f"block number: {gas.block_num}")
-    print(f"average wait: {gas.average_wait}")
    

@@ -4,7 +4,7 @@ import logging
 import logging.config
 from miner_manager.averages import calculate_ema
 from miner_manager.client import APIClient
-from miner_manager.handler import ResponseHandler
+from miner_manager.response_handler import ResponseHandler
 from miner_manager.miner import miner_is_on, toggle_miner_on_off
 from miner_manager.models import Gas
 
@@ -14,7 +14,7 @@ with open('log.yaml') as fp:
 
 logger = logging.getLogger(__name__)
 
-LIMIT = 4
+N_RECORDS = 4
 GAS_PRICE_THRESHOLD = 40
 
 def get_and_create_gas_record():
@@ -28,16 +28,16 @@ def get_and_create_gas_record():
     gas_record.save()
 
 
-def evaluate_latest_gas_trend(limit: int) -> float:
-    """Calculate EMA of previous gas prices"""
+def evaluate_latest_gas_trend(n_records: int) -> float:
+    """Calculate EMA of previous N_RECORDS of gas prices"""
     gas_prices = []
-    for gas in Gas.select().order_by(Gas.created_at.desc()).limit(limit):
+    for gas in Gas.select().order_by(Gas.created_at.desc()).limit(n_records):
         gas_prices.append(gas.gas_price_average)
 
     return calculate_ema(gas_prices)
 
 
-def handle_miner(ema: float):
+def miner_handler(ema: float):
     """Check EMA and miner status and turn on/off depending on results"""
     logger.info(f'current gas price EMA: {ema} GWEI')
     if ema >= GAS_PRICE_THRESHOLD and not miner_is_on():
@@ -52,8 +52,8 @@ def handle_miner(ema: float):
 
 def main():
     get_and_create_gas_record()
-    ema = evaluate_latest_gas_trend(LIMIT)
-    handle_miner(ema)
+    ema = evaluate_latest_gas_trend(N_RECORDS)
+    miner_handler(ema)
 
 
 if __name__ == '__main__':
