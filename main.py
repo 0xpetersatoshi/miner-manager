@@ -39,11 +39,13 @@ def evaluate_latest_gas_trend(n_records: int) -> float:
 
 def miner_handler(ema: float):
     """Check EMA and miner status and turn on/off depending on results"""
+    miner_on = miner_is_on()
     logger.info(f'current gas price EMA: {ema} GWEI')
-    if ema >= GAS_PRICE_THRESHOLD and not miner_is_on():
+    logger.info(f'miner status: {"on" if miner_on else "off"}')
+    if ema >= GAS_PRICE_THRESHOLD and not miner_on:
         logger.info(f'turning miner on...')
         toggle_miner_on_off()
-    elif ema < GAS_PRICE_THRESHOLD and miner_is_on():
+    elif ema < GAS_PRICE_THRESHOLD and miner_on:
         logger.info(f'turning miner off...')
         toggle_miner_on_off()
     else:
@@ -51,6 +53,8 @@ def miner_handler(ema: float):
 
 
 def main():
+    logger.info(f'gas price (GWEI) threshold: {GAS_PRICE_THRESHOLD}')
+    logger.info(f'number of gas prices to compare: {N_RECORDS}')
     get_and_create_gas_record()
     ema = evaluate_latest_gas_trend(N_RECORDS)
     miner_handler(ema)
